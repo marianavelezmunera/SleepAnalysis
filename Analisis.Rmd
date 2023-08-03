@@ -1,0 +1,70 @@
+---
+title: "Análisis inicial"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+DB <- read_excel("DB.xls", col_types = c("text","numeric", "text", "text", "text", "text","text", "numeric", "text", "numeric","numeric", "text", "numeric", "text","text", "text", "numeric", "text", "numeric","numeric", "numeric", "numeric", "numeric","numeric", "numeric", "numeric", "date"))
+```
+
+# Revisión inicial de los datos
+
+## Variables
+
+### Relacionadas con la persona
+
+- **Age**: Edad en años (numérica discreta)
+
+- **Sex**: Sexo. Femenino = 1, Masculino = 0. (categórica) 
+
+- **Liveswithpeople**: Si viven con más gente o solos. Solos = 0, con más gente = 1 (categórica)
+
+- **kids_age_menor10**: Si tienen hijos menores de 10. Tienen hijos menores de 10 = 1, no tienen hijos menores de 10 = 0. (categórica)
+
+### Relacionadas con el trabajo
+
+- **Job**: Tipo de trabajo (categórica)
+
+- **Timejob**: Tiempo que llevan en el trabajo en años. (numérica continua) 
+
+- **Modalidad**: Modalidad de trabajo. Presencial = 3, Semipresencial = 2, Remota = 1. (categórica)
+
+- **Shift**: Horario de turno. Flexible = 4, Diurno = 3, Tarde = 2, Noche = 1. (categórica)
+
+- **nights_or_shifts**: Sí tomó turnos nocturnos en el último mes. Sí = 1, No = 0. (categórica)
+
+- **job_days_perweek**: Número de días laborales por semana. (numérica discreta)
+
+
+### Relacionadas con el sueño 
+
+- **sleeping_quality**: Calidad del sueño. Muy mala = 1, Mala = 2, Buena = 3, Muy buena = 4. (categórica)
+
+- **pittsburg**: Indicador. A mayor es peor. (numérica continua)
+
+- **hygine**: Indicador. A mayor es mejor. (numérica continua)
+
+- **jobsatis_intrins**: Indicador. A mayor es mejor. (numérica continua)
+
+- **jobsatis_extrin**: Indicador. A mayor es mejor. (numérica continua)
+
+- **job_satisfaction**: Indicador. A mayor es mejor. (numérica continua)
+
+- **self_productivity**: Indicador. A mayor es mejor. (numérica continua)
+
+- **insomnio**: Indicador. A mayor es peor. (numérica continua)
+
+- **subth_insomnia**: Indicador. A mayor es peor. (numérica continua)
+
+- **MSFSC**: Cronotipo
+
+## Estructura de la base de datos 
+
+```{r}
+str(DB)
+summary(DB)
+
+```
+
