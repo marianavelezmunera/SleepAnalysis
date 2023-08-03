@@ -17,3 +17,15 @@ unique(DB$shift)
 unique(DB$nights_or_shifts)
 unique(DB$sleeping_quality)
 unique(DB$MSFSC)
+
+# Paquetes
+
+library(tidyverse)
+library(patchwork)
+library(showtext)
+library(correlation)
+library(ggpubr)
+library(ggtext)
+library(gt)
+library(gtable)
+library(gtExtras)
