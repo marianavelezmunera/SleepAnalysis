@@ -5,7 +5,7 @@ View(DB)
 DB_age<-round(DB$age)
 DB_age
 DB$age<-DB_age
-
+attach(DB)
 #Corroborar las categóricas
 
 unique(DB$sex)
@@ -29,3 +29,4 @@ library(ggtext)
 library(gt)
 library(gtable)
 library(gtExtras)
+
