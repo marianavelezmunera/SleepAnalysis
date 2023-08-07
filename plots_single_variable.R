@@ -76,13 +76,33 @@ ggplot(data=DB,aes(x=sleeping_quality))+
   scale_x_discrete(labels=c("Very bad","Bad","Good","Very good"))
 
 ggplot(data=DB,aes(x=job_satisfaction))+
-  geom_histogram()
+  geom_histogram(color="black",fill=met.brewer("Pissaro",10)[1])+
+  theme_pubclean()+
+  ylab("Number of people")+
+  xlab("Job satisfaction")+
+  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
+  theme(axis.text = element_text(family = "Open Sans"))
 
 ggplot(data=DB,aes(x=self_productivity))+
-  geom_histogram()
+  geom_histogram(color="black",fill=met.brewer("Pissaro",10)[3])+
+  theme_pubclean()+
+  ylab("Number of people")+
+  xlab("Self productivity")+
+  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
+  theme(axis.text = element_text(family = "Open Sans"))
 
 ggplot(data=DB,aes(x=hygine))+
-  geom_histogram()
+  geom_histogram(color="black",fill=met.brewer("Pissaro",10)[2])+
+  theme_pubclean()+
+  ylab("Number of people")+
+  xlab("Sleep hygiene")+
+  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
+  theme(axis.text = element_text(family = "Open Sans"))
 
 ggplot(data=DB,aes(x=insomnio))+
-  geom_histogram()
+  geom_histogram(color="black",fill=met.brewer("Pissaro",10)[5])+
+  theme_pubclean()+
+  ylab("Number of people")+
+  xlab("Insomnia index")+
+  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
+  theme(axis.text = element_text(family = "Open Sans"))
