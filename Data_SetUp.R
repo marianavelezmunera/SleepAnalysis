@@ -34,4 +34,5 @@ library(ggtext)
 library(gt)
 library(gtable)
 library(gtExtras)
+library(MetBrewer)
 
