@@ -6,6 +6,11 @@ DB_age<-round(DB$age)
 DB_age
 DB$age<-DB_age
 attach(DB)
+
+MCTQ <- read_excel("MCTQ.xlsx")
+View(MCTQ)
+attach(MCTQ)
+
 #Corroborar las categóricas
 
 unique(DB$sex)
