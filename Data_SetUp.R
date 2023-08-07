@@ -36,3 +36,8 @@ library(gtable)
 library(gtExtras)
 library(MetBrewer)
 
+# Letra
+
+font_add_google("Open Sans","Open Sans") #Font
+font.families()
+showtext_auto()
