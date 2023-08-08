@@ -150,14 +150,14 @@ ggplot(data = DB,aes(x=age,y=self_productivity))+
 
 # time job vs satisfaction
 
-ggplot(data = DB,aes(time_job,y=self_productivity))+
+ggplot(data = DB,aes(time_job,y=job_satisfaction))+
   geom_point()+
-  xlab("Time job (years)")+ylab("Self productivity")+
+  xlab("Time job (years)")+ylab("Job satisfaction")+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
   theme(axis.text = element_text(family = "Open Sans"))+
   geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
-  scale_colour_manual(values=met.brewer("Pissaro",4)[1],label="rho = 0.11")+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[1],label="rho = 0.22*")+
   theme(legend.position = c(0.8,0.75))+
   theme(legend.title = element_blank())+
   theme(legend.background = element_blank())+
