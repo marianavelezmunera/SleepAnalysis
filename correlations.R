@@ -20,6 +20,10 @@ cor.test(DB$age,DB$self_productivity,method = "spearman")
 
 cor.test(time_job,self_productivity,method = "spearman")
 
+# Time job vs satisfaccion
+
+cor.test(time_job,job_satisfaction,method = "spearman")
+
 # Job days vs productividad
 
 cor.test(jobdays_perweek,self_productivity,method = "spearman")
