@@ -172,7 +172,13 @@ ggplot(data = DB,aes(x=jobdays_perweek,y=self_productivity))+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
   theme(axis.text = element_text(family = "Open Sans"))+
-  geom_smooth(method = "lm",fill=NA,color=met.brewer("Pissaro",10)[3])
+  geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[2],label="rho = 0.11")+
+  theme(legend.position = c(0.7,0.75))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans",size=10))
 
 # Job days vs satisfaction
 
@@ -182,4 +188,10 @@ ggplot(data = DB,aes(x=jobdays_perweek,y=job_satisfaction))+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
   theme(axis.text = element_text(family = "Open Sans"))+
-  geom_smooth(method = "lm",fill=NA,color=met.brewer("Pissaro",10)[6])
+  geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[4],label="rho = 0.23 **")+
+  theme(legend.position = c(0.67,0.55))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans",size=10))

@@ -287,19 +287,18 @@ ggplot(data=DB,aes(x=job_satisfaction,y=self_productivity))+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
   theme(axis.text = element_text(family = "Open Sans"))+
-  geom_smooth(method = "lm",fill=NA,color=met.brewer("Pissaro",10)[5])
+  geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[3],label="rho = 0.36 ***")+
+  theme(legend.position = c(0.8,0.5))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans",size=10))
 ```
 
-**Interpretación:**
+**Interpretación:** Hay una correlación positiva significativa entre la satisfacción en el trabajo y la productividad. (S = 122799, p-value = 0.0001383, rho = 0.3634734)
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-ggplot(data=DB,aes(x=job_satisfaction,y=self_productivity))+
-  geom_point()+
-  ylab("Self productivity")+xlab("Job satisfaction")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
-```
+### Tipo de trabajo vs satisfacción
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 # tipo de trabajo vs satisfaccion
@@ -313,6 +312,10 @@ ggplot(data=DB,aes(x=job,y=job_satisfaction,fill=job))+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
   theme(axis.text = element_text(family = "Open Sans"))
 ```
+
+**Interpretación:** La satisfacción media es diferente según el tipo de trabajo, siendo los programadores los más satisfechos. Resultados del ANOVA de Welch: F = 2.9625; p-value = 0.04189.
+
+### Tipo de trabajo vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -329,6 +332,9 @@ ggplot(data=DB,aes(x=job,y=self_productivity,fill=job))+
   
 ```
 
+**Interpretación:** La productividad media es diferente según el tipo de trabajo, siendo los administrativos los más productivos. Resultados del ANOVA de Welch: F = 5.531; p-value = 0.002311.
+
+### Tipo de turno vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 # shift vs productividad 
@@ -343,6 +349,10 @@ ggplot(data=DB,aes(x=shift,y=self_productivity,fill=shift))+
   scale_fill_met_d("Pissaro")+
   scale_x_discrete(labels=c("Night","Afternoon","Morning","Flexible"))
 ```
+
+**Interpretación:** La productividad media no es diferente según el turno de trabajo. Resultados del ANOVA de Welch: F = 0.12829; p-value = 0.941.
+
+### Tipo de turno vs satisfacción en el trabajo
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -360,6 +370,10 @@ ggplot(data=DB,aes(x=shift,y=job_satisfaction,fill=shift))+
 
 ```
 
+**Interpretación:** La satisfacción media es diferente según el turno de trabajo, sintiendo más satisfacción aquellos con turnos flexibles. Resultados del ANOVA de Welch: F = 4.1452; p-value = 0.04804.
+
+### Tipo de turno vs insomnio 
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
 # shift insomnio 
@@ -374,6 +388,10 @@ ggplot(data=DB,aes(x=shift,y=insomnio,fill=shift))+
   scale_fill_met_d("Pissaro")+
   scale_x_discrete(labels=c("Night","Afternoon","Morning","Flexible"))
 ```
+
+**Interpretación:** El índice de insomnio medio es diferente según el turno de trabajo, siendo menor para los trabajadores con turno en la tarde. Resultados del ANOVA de Welch: F = 23.323; p-value = 9.342e-05.
+
+### Calidad del sueño vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -390,6 +408,10 @@ ggplot(data=DB,aes(x=sleeping_quality,y=self_productivity,fill=sleeping_quality)
   scale_x_discrete(labels=c("Very bad","Bad","Good","Very good"))
 ```
 
+**Interpretación:** La productividad media no es diferente según la calidad del sueño. Resultados del ANOVA de Welch: F = 3.0808; p-value = 0.06904.
+
+### Calidad del sueño vs satisfacción
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 # Calidad de sueño vs satisfaccion
 
@@ -404,6 +426,10 @@ ggplot(data=DB,aes(x=sleeping_quality,y=job_satisfaction,fill=sleeping_quality))
   scale_x_discrete(labels=c("Very bad","Bad","Good","Very good"))
 ```
 
+**Interpretación:** La satisfacción media es diferente según la calidad del sueño. Resultados del ANOVA de Welch: F = 3.4568; p-value = 0.0533.
+
+### Insomnio vs satisfacción
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
 # Insomnio vs satisfaccion
@@ -413,9 +439,19 @@ ggplot(data=DB,aes(x=insomnio,y=job_satisfaction))+
   ylab("Insomnio index")+xlab("Job satisfaction")+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
+  theme(axis.text = element_text(family = "Open Sans"))+
+  geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[7],label="rho = 0.04")+
+  theme(legend.position = c(0.8,0.65))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans",size=10))
 ```
 
+**Interpretación:** No hay una correlación significativa entre la satisfacción en el trabajo y el insomnio. (S = 185967, p-value = 0.7151, rho = 0.03604247)
+
+### Insomnio vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -426,20 +462,41 @@ ggplot(data=DB,aes(x=insomnio,y=self_productivity))+
   ylab("Insomnio index")+xlab("Self productivity")+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
+  theme(axis.text = element_text(family = "Open Sans"))+
+  geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[9],label="rho = - 0.11")+
+  theme(legend.position = c(0.9,0.75))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans",size=10))
 ```
+
+**Interpretación:** No hay una correlación significativa entre la satisfacción en el trabajo y el insomnio. (S = 214376, p-value = 0.2587, rho = -0.1112151)
+
+### Edad vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
 # Edad vs productividad
-
 ggplot(data = DB,aes(x=age,y=self_productivity))+
   geom_point()+
   ylab("Self productivity")+xlab("Age (years)")+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
+  theme(axis.text = element_text(family = "Open Sans"))+
+  geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[3],label="rho = 0.22*")+
+  theme(legend.position = c(0.85,0.8))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans",size=10))
 ```
+
+**Interpretación:** Hay una correlación positiva significativa entre la edad y la productividad. (S = 151354, p-value = 0.02729, rho = 0.2154549)
+
+### Tiempo de trabajo vs satisfacción
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -450,7 +507,14 @@ ggplot(data = DB,aes(time_job,y=self_productivity))+
   xlab("Time job (years)")+ylab("Self productivity")+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
+  theme(axis.text = element_text(family = "Open Sans"))+
+  geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[1],label="rho = 0.11")+
+  theme(legend.position = c(0.8,0.75))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans",size=10))
 ```
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}

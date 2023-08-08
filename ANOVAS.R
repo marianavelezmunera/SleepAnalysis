@@ -28,6 +28,7 @@ oneway.test(self_productivity~shift,data = DB,var.equal = FALSE)
 
 # Productividad vs calidad del sueño
 
+
 kruskal.test(self_productivity~sleeping_quality,data = DB)
 oneway.test(self_productivity~sleeping_quality,data = DB,var.equal = FALSE)
 
@@ -41,3 +42,6 @@ oneway.test(self_productivity~jobdays_perweek,data = DB,var.equal = FALSE)
 kruskal.test(job_satisfaction~jobdays_perweek,data = DB)
 oneway.test(job_satisfaction~jobdays_perweek,data = DB,var.equal = FALSE)
 
+# Insomnio vs shift
+oneway.test(insomnio~shift,data = DB,var.equal = FALSE)
+kruskal.test(insomnio~shift,data = DB)
