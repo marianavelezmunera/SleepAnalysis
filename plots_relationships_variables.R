@@ -121,21 +121,23 @@ ggplot(data=DB,aes(x=insomnio,y=job_satisfaction))+
   theme(legend.key = element_rect(fill = "transparent"))+
   theme(legend.text = element_text(family = "Open Sans",size=24))
 ggsave("plot21.png")
+
 # Insomnio vs productividad
 
 ggplot(data=DB,aes(x=insomnio,y=self_productivity))+
   geom_point()+
   ylab("Insomnio index")+xlab("Self productivity")+
   theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
+  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
+  theme(axis.text = element_text(family = "Open Sans",size = 24))+
   geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
   scale_colour_manual(values=met.brewer("Pissaro",4)[9],label="rho = - 0.11")+
   theme(legend.position = c(0.9,0.75))+
   theme(legend.title = element_blank())+
   theme(legend.background = element_blank())+
   theme(legend.key = element_rect(fill = "transparent"))+
-  theme(legend.text = element_text(family = "Open Sans",size=10))
+  theme(legend.text = element_text(family = "Open Sans",size=24))
+ggsave("plot22.png")
 
 # Edad vs productividad
 
@@ -143,15 +145,16 @@ ggplot(data = DB,aes(x=age,y=self_productivity))+
   geom_point()+
   ylab("Self productivity")+xlab("Age (years)")+
   theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
+  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
+  theme(axis.text = element_text(family = "Open Sans",size = 24))+
   geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
   scale_colour_manual(values=met.brewer("Pissaro",4)[3],label="rho = 0.22*")+
   theme(legend.position = c(0.85,0.8))+
   theme(legend.title = element_blank())+
   theme(legend.background = element_blank())+
   theme(legend.key = element_rect(fill = "transparent"))+
-  theme(legend.text = element_text(family = "Open Sans",size=10))
+  theme(legend.text = element_text(family = "Open Sans",size=24))
+ggsave("plot23.png")
 
 # time job vs satisfaction
 
@@ -159,15 +162,16 @@ ggplot(data = DB,aes(time_job,y=job_satisfaction))+
   geom_point()+
   xlab("Time job (years)")+ylab("Job satisfaction")+
   theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
+  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
+  theme(axis.text = element_text(family = "Open Sans",size = 24))+
   geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
   scale_colour_manual(values=met.brewer("Pissaro",4)[1],label="rho = 0.22*")+
   theme(legend.position = c(0.8,0.75))+
   theme(legend.title = element_blank())+
   theme(legend.background = element_blank())+
   theme(legend.key = element_rect(fill = "transparent"))+
-  theme(legend.text = element_text(family = "Open Sans",size=10))
+  theme(legend.text = element_text(family = "Open Sans",size=24))
+ggsave("plot24.png")
 
 # job days vs productividad
 
@@ -175,15 +179,16 @@ ggplot(data = DB,aes(x=jobdays_perweek,y=self_productivity))+
   geom_point()+
   xlab("Job days per week")+ylab("Self productivity")+
   theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
+  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
+  theme(axis.text = element_text(family = "Open Sans",size = 24))+
   geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
   scale_colour_manual(values=met.brewer("Pissaro",4)[2],label="rho = 0.11")+
   theme(legend.position = c(0.7,0.75))+
   theme(legend.title = element_blank())+
   theme(legend.background = element_blank())+
   theme(legend.key = element_rect(fill = "transparent"))+
-  theme(legend.text = element_text(family = "Open Sans",size=10))
+  theme(legend.text = element_text(family = "Open Sans",size=24))
+ggsave("plot25.png")
 
 # Job days vs satisfaction
 
@@ -191,12 +196,13 @@ ggplot(data = DB,aes(x=jobdays_perweek,y=job_satisfaction))+
   geom_point()+
   xlab("Job days per week")+ylab("Job satisfaction")+
   theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
+  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
+  theme(axis.text = element_text(family = "Open Sans",size = 24))+
   geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
   scale_colour_manual(values=met.brewer("Pissaro",4)[4],label="rho = 0.23 **")+
   theme(legend.position = c(0.67,0.55))+
   theme(legend.title = element_blank())+
   theme(legend.background = element_blank())+
   theme(legend.key = element_rect(fill = "transparent"))+
-  theme(legend.text = element_text(family = "Open Sans",size=10))
+  theme(legend.text = element_text(family = "Open Sans",size=24))
+ggsave("plot26.png")
