@@ -2,6 +2,8 @@
 
 # Sobre las personas como tal
 
+#Edad
+
 ggplot(data=DB,aes(x=age))+
   geom_histogram(bins = 31,color="black",fill=met.brewer("Pissaro",10)[1])+
   theme_pubclean()+
@@ -11,6 +13,8 @@ ggplot(data=DB,aes(x=age))+
   theme(axis.text = element_text(family = "Open Sans",size=24))
 ggsave("plot1.png")
 
+# Trabajo
+
 ggplot(data = DB,aes(x=job))+
   geom_bar(width = 0.5,color="black",fill=met.brewer("Pissaro",10)[4])+
   theme_pubclean()+
@@ -19,6 +23,8 @@ ggplot(data = DB,aes(x=job))+
   theme(axis.title = element_text(face="bold",family = "Open Sans",size=30))+
   theme(axis.text = element_text(family = "Open Sans",size=24))
 ggsave("plot2.png")
+
+# Sexo
 
 ggplot(data = DB,aes(x=sex))+
   geom_bar(width = 0.25,color="black",fill=met.brewer("Pissaro",10)[6])+
@@ -32,6 +38,30 @@ ggsave("plot3.png")
 
 # Sobre el trabajo
 
+# Satisfacción en el trabajo
+
+ggplot(data=DB,aes(x=job_satisfaction))+
+  geom_histogram(color="black",fill=met.brewer("Pissaro",10)[1])+
+  theme_pubclean()+
+  ylab("Number of people")+
+  xlab("Job satisfaction")+
+  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
+  theme(axis.text = element_text(family = "Open Sans",size = 24))
+ggsave("plot9.png")
+
+# Productividad
+
+ggplot(data=DB,aes(x=self_productivity))+
+  geom_histogram(color="black",fill=met.brewer("Pissaro",10)[3])+
+  theme_pubclean()+
+  ylab("Number of people")+
+  xlab("Self productivity")+
+  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
+  theme(axis.text = element_text(family = "Open Sans",size = 24))
+ggsave("plot10.png")
+
+# Tiempo en el trabajo
+
 ggplot(data=DB,aes(x=time_job))+
   geom_histogram(bins = 30,color="black",fill=met.brewer("Pissaro",10)[8])+
   theme_pubclean()+
@@ -40,6 +70,8 @@ ggplot(data=DB,aes(x=time_job))+
   theme(axis.title = element_text(face="bold",family = "Open Sans",size=30))+
   theme(axis.text = element_text(family = "Open Sans",size=24))
 ggsave("plot4.png")
+
+# Modalidad
 
 ggplot(data = DB,aes(x=modalidad))+
   geom_bar(width = 0.25,color="black",fill=met.brewer("Pissaro",10)[9])+
@@ -51,6 +83,7 @@ ggplot(data = DB,aes(x=modalidad))+
   scale_x_discrete(labels=c("Remote","Hybrid","In-office"))
 ggsave("plot5.png")
 
+# Tipo de turno
 
 ggplot(data = DB, aes(x=shift))+
   geom_bar(width = 0.25,color="black",fill=met.brewer("Pissaro",10)[10])+
@@ -61,6 +94,8 @@ ggplot(data = DB, aes(x=shift))+
   theme(axis.text = element_text(family = "Open Sans",size=24))+
   scale_x_discrete(labels=c("Night","Afternoon","Morning","Flexible"))
 ggsave("plot6.png")
+
+# Días laborales por semana
 
 ggplot(data=DB,aes(x=jobdays_perweek))+
   geom_histogram(bins =7,color="black",fill=met.brewer("Pissaro",10)[8])+
@@ -74,6 +109,8 @@ ggsave("plot7.png")
 
 # Sobre el sueño
 
+# Calidad del sueño
+
 ggplot(data=DB,aes(x=sleeping_quality))+
   geom_bar(width = 0.25,color="black",fill=met.brewer("Pissaro",10)[10])+
   theme_pubclean()+
@@ -84,23 +121,7 @@ ggplot(data=DB,aes(x=sleeping_quality))+
   scale_x_discrete(labels=c("Very bad","Bad","Good","Very good"))
 ggsave("plot8.png")
 
-ggplot(data=DB,aes(x=job_satisfaction))+
-  geom_histogram(color="black",fill=met.brewer("Pissaro",10)[1])+
-  theme_pubclean()+
-  ylab("Number of people")+
-  xlab("Job satisfaction")+
-  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
-  theme(axis.text = element_text(family = "Open Sans",size = 24))
-ggsave("plot9.png")
-
-ggplot(data=DB,aes(x=self_productivity))+
-  geom_histogram(color="black",fill=met.brewer("Pissaro",10)[3])+
-  theme_pubclean()+
-  ylab("Number of people")+
-  xlab("Self productivity")+
-  theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
-  theme(axis.text = element_text(family = "Open Sans",size = 24))
-ggsave("plot10.png")
+# Higiene 
 
 ggplot(data=DB,aes(x=hygine))+
   geom_histogram(color="black",fill=met.brewer("Pissaro",10)[2])+
@@ -110,6 +131,8 @@ ggplot(data=DB,aes(x=hygine))+
   theme(axis.title = element_text(face="bold",family = "Open Sans",size = 30))+
   theme(axis.text = element_text(family = "Open Sans",size = 24))
 ggsave("plot11.png")
+
+# Insomnio
 
 ggplot(data=DB,aes(x=insomnio))+
   geom_histogram(color="black",fill=met.brewer("Pissaro",10)[5])+

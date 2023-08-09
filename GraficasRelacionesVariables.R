@@ -1,6 +1,6 @@
-# Plots relationships between variables
+# Gráficas relaciones entre variables
 
-#satisfacción vs productividad
+# Satisfacción vs productividad
 
 ggplot(data=DB,aes(x=job_satisfaction,y=self_productivity))+
   geom_point()+
@@ -17,7 +17,7 @@ ggplot(data=DB,aes(x=job_satisfaction,y=self_productivity))+
   theme(legend.text = element_text(family = "Open Sans",size=24))
 ggsave("plot13.png")
 
-# tipo de trabajo vs satisfaccion
+# Tipo de trabajo vs satisfacción
 
 ggplot(data=DB,aes(x=job,y=job_satisfaction,fill=job))+
   geom_boxplot(color="black")+
@@ -29,7 +29,7 @@ ggplot(data=DB,aes(x=job,y=job_satisfaction,fill=job))+
   theme(axis.text = element_text(family = "Open Sans",size = 24))
 ggsave("plot14.png")
 
-# tipo de trabajo vs productividad
+# Tipo de trabajo vs productividad
 
 ggplot(data=DB,aes(x=job,y=self_productivity,fill=job))+
   geom_boxplot(color="black")+
@@ -41,7 +41,7 @@ ggplot(data=DB,aes(x=job,y=self_productivity,fill=job))+
   scale_fill_met_d("Pissaro")
 ggsave("plot15.png")  
 
-# shift vs productividad 
+# Shift vs productividad 
 
 ggplot(data=DB,aes(x=shift,y=self_productivity,fill=shift))+
   geom_boxplot(color="black")+
@@ -54,7 +54,7 @@ ggplot(data=DB,aes(x=shift,y=self_productivity,fill=shift))+
   scale_x_discrete(labels=c("Night","Afternoon","Morning","Flexible"))
 ggsave("plot16.png")  
 
-# shift vs satisfaction
+# Shift vs satisfaction
 
 ggplot(data=DB,aes(x=shift,y=job_satisfaction,fill=shift))+
   geom_boxplot(color="black")+
@@ -67,7 +67,7 @@ ggplot(data=DB,aes(x=shift,y=job_satisfaction,fill=shift))+
   scale_x_discrete(labels=c("Night","Afternoon","Morning","Flexible"))
 ggsave("plot17.png")
 
-# shift insomnio 
+# Shift vs insomnio 
 
 ggplot(data=DB,aes(x=shift,y=insomnio,fill=shift))+
   geom_boxplot(color="black")+
@@ -105,6 +105,7 @@ ggplot(data=DB,aes(x=sleeping_quality,y=job_satisfaction,fill=sleeping_quality))
   scale_fill_met_d("Pissaro")+
   scale_x_discrete(labels=c("Very bad","Bad","Good","Very good"))
 ggsave("plot20.png")
+
 # Insomnio vs satisfaccion
 
 ggplot(data=DB,aes(x=insomnio,y=job_satisfaction))+
@@ -156,7 +157,7 @@ ggplot(data = DB,aes(x=age,y=self_productivity))+
   theme(legend.text = element_text(family = "Open Sans",size=24))
 ggsave("plot23.png")
 
-# time job vs satisfaction
+# Tiempo en el trabajo vs satisfacción
 
 ggplot(data = DB,aes(time_job,y=job_satisfaction))+
   geom_point()+
@@ -173,7 +174,7 @@ ggplot(data = DB,aes(time_job,y=job_satisfaction))+
   theme(legend.text = element_text(family = "Open Sans",size=24))
 ggsave("plot24.png")
 
-# job days vs productividad
+# Dias laborales vs productividad
 
 ggplot(data = DB,aes(x=jobdays_perweek,y=self_productivity))+
   geom_point()+
@@ -190,7 +191,7 @@ ggplot(data = DB,aes(x=jobdays_perweek,y=self_productivity))+
   theme(legend.text = element_text(family = "Open Sans",size=24))
 ggsave("plot25.png")
 
-# Job days vs satisfaction
+# Dias laborales vs satisfaccion
 
 ggplot(data = DB,aes(x=jobdays_perweek,y=job_satisfaction))+
   geom_point()+

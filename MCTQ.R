@@ -1,5 +1,9 @@
 # MCTQ
 
+# MSFsc vs MSF
+
+# Datos 
+
 MCTQ1<-cbind(MCTQ,DB[,c(12,14,15,18)])
 
 ggplot(data=MCTQ1,aes(x=MSFsc,y=MSF))+
@@ -19,6 +23,23 @@ ggplot(data=MCTQ1,aes(x=MSFsc,y=MSF))+
 ggsave("plot28.png")
 summary(lm(MSFsc~MSF,data = MCTQ))
 
+# MSF vs MSW
+
+# Datos
+
+night<-subset(MCTQ1,shift=="1")
+after<-subset(MCTQ1,shift=="2")
+morning<-subset(MCTQ1,shift=="3")
+flex<-subset(MCTQ1,shift=="4")
+
+# Correlaciones 
+cor.test(night$MSW,night$MSF,method = "spearman")
+cor.test(after$MSW,after$MSF,method = "spearman")
+cor.test(morning$MSW,morning$MSF,method = "spearman")
+cor.test(flex$MSW,flex$MSF,method = "spearman")
+
+# Grafico
+
 ggplot(data=MCTQ,aes(x=MSF,y=MSW,color=shift))+
   geom_point(size=1)+
   geom_smooth(method = "lm", fill = NA, size=0.65)+
@@ -32,12 +53,3 @@ ggplot(data=MCTQ,aes(x=MSF,y=MSW,color=shift))+
   theme(legend.key = element_rect(fill = "transparent"))+
   theme(legend.background = element_rect(fill = "transparent"))
 ggsave("plot29.png")
-night<-subset(MCTQ1,shift=="1")
-after<-subset(MCTQ1,shift=="2")
-morning<-subset(MCTQ1,shift=="3")
-flex<-subset(MCTQ1,shift=="4")
-
-cor.test(night$MSW,night$MSF,method = "spearman")
-cor.test(after$MSW,after$MSF,method = "spearman")
-cor.test(morning$MSW,morning$MSF,method = "spearman")
-cor.test(flex$MSW,flex$MSF,method = "spearman")
