@@ -35,7 +35,7 @@ library(gt)
 library(gtable)
 library(gtExtras)
 library(MetBrewer)
-
+library(reshape)
 # Letra
 
 font_add_google("Open Sans","Open Sans") #Font

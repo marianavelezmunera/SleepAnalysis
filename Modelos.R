@@ -5,6 +5,7 @@
 m1<-glm(job_satisfaction~sleeping_quality+pittsburg+hygine+insomnio+subth_insomnia,family = "poisson")
 summary(m1)
 m2<-glm(self_productivity~sleeping_quality+pittsburg+hygine+insomnio+subth_insomnia,family = "poisson")
+
 summary(m2)
 
 # Sociodemograficos

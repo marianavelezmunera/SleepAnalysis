@@ -1,8 +1,8 @@
 ---
 title: "Análisis de los datos"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -18,7 +18,7 @@ library(gt)
 library(gtable)
 library(gtExtras)
 library(MetBrewer)
-
+library(reshape)
 # Datos
 DB <- read_excel("DB.xls", col_types = c("text","numeric", "text", "text", "text", "text","text", "numeric", "text", "numeric","numeric", "text", "numeric", "text","text", "text", "numeric", "text", "numeric","numeric", "numeric", "numeric", "numeric","numeric", "numeric", "numeric", "date"))
 DB_age<-round(DB$age)
@@ -88,8 +88,9 @@ showtext_auto()
 
 ## Estructura de la base de datos 
 
+Se analiza cada variable de la base de datos y se resumen sus características (media, mediana, máximo, mínimo)
+
 ```{r}
-str(DB)
 summary(DB)
 
 ```
@@ -143,7 +144,7 @@ ggplot(data = DB,aes(x=sex))+
 
 ### Sobre el trabajo
 
-#### Tiempo en el trabajo
+### Tiempo en el trabajo
 
 ```{r, echo=FALSE,warning=FALSE,out.width="75%"}
 ggplot(data=DB,aes(x=time_job))+
@@ -157,7 +158,7 @@ ggplot(data=DB,aes(x=time_job))+
 
 **Interpretación:** La mayoría de las personas llevan menos de dos años en su trabajo actual.
 
-#### Modalidad de trabajo 
+### Modalidad de trabajo 
 
 ```{r, echo=FALSE,warning=FALSE,out.width="75%"}
 ggplot(data = DB,aes(x=modalidad))+
@@ -172,7 +173,7 @@ ggplot(data = DB,aes(x=modalidad))+
 
 **Interpretación:** La mayoría de las personas trabajan de manera presencial, sin embargo algunos trabajan completamente remoto y otros semi-presencial.
 
-#### Tipo de turno
+### Tipo de turno
 
 ```{r, echo=FALSE,warning=FALSE,out.width="75%"}
 ggplot(data = DB, aes(x=shift))+
@@ -187,7 +188,7 @@ ggplot(data = DB, aes(x=shift))+
 
 **Interpretación:** La mayoría de las personas tienen turnos de trabajo en la mañana
 
-#### Días laborales por semana
+### Días laborales por semana
 
 ```{r, echo=FALSE,warning=FALSE,out.width="75%"}
 ggplot(data=DB,aes(x=jobdays_perweek))+
@@ -204,7 +205,7 @@ ggplot(data=DB,aes(x=jobdays_perweek))+
 
 ### Sobre el sueño
 
-#### Calidad del sueño
+### Calidad del sueño
 
 ```{r, echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 ggplot(data=DB,aes(x=sleeping_quality))+
@@ -219,7 +220,7 @@ ggplot(data=DB,aes(x=sleeping_quality))+
 
 **Interpretación:** La mayoría de las personas tienen una calidad de sueño buena
 
-#### Satisfacción en el trabajo
+### Satisfacción en el trabajo
 
 ```{r, echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 ggplot(data=DB,aes(x=job_satisfaction))+
@@ -233,7 +234,7 @@ ggplot(data=DB,aes(x=job_satisfaction))+
 
 **Interpretación:** La mayoría de las personas se sienten medianamente satisfechas con su trabajo
 
-#### Productividad
+### Productividad
 
 ```{r, echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 ggplot(data=DB,aes(x=self_productivity))+
@@ -247,7 +248,7 @@ ggplot(data=DB,aes(x=self_productivity))+
 
 **Interpretación:** La mayoría de las personas son altamente productivas
 
-#### Higiene del sueño
+### Higiene del sueño
 
 ```{r, echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 ggplot(data=DB,aes(x=hygine))+
@@ -261,7 +262,7 @@ ggplot(data=DB,aes(x=hygine))+
 
 **Interpretación:** La mayoría de las personas tienen una higiene de sueño regular
 
-#### Insomnio
+### Insomnio
 
 ```{r, echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 ggplot(data=DB,aes(x=insomnio))+
@@ -276,9 +277,11 @@ ggplot(data=DB,aes(x=insomnio))+
 
 **Interpretación:** La mayoría de las personas tienen un índice de insomnio menor de entre 3 y 4
 
-## Gráficas de las relaciones entre variables 
+# Relaciones entre variables 
 
-### Satisfacción vs productividad
+Se probó normalidad para todas las variables y ninguna es normal, por lo que todas las correlaciones son correlaciones de spearman. Como no hay balance entre grupos ni normalidad los ANOVAS son ANOVAS de Welch. La interpretación es como la del ANOVA normal. 
+
+## Satisfacción vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 ggplot(data=DB,aes(x=job_satisfaction,y=self_productivity))+
@@ -298,7 +301,7 @@ ggplot(data=DB,aes(x=job_satisfaction,y=self_productivity))+
 
 **Interpretación:** Hay una correlación positiva significativa entre la satisfacción en el trabajo y la productividad. (S = 122799, p-value = 0.0001383, rho = 0.3634734)
 
-### Tipo de trabajo vs satisfacción
+## Tipo de trabajo vs satisfacción
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 # tipo de trabajo vs satisfaccion
@@ -315,7 +318,7 @@ ggplot(data=DB,aes(x=job,y=job_satisfaction,fill=job))+
 
 **Interpretación:** La satisfacción media es diferente según el tipo de trabajo, siendo los programadores los más satisfechos. Resultados del ANOVA de Welch: F = 2.9625; p-value = 0.04189.
 
-### Tipo de trabajo vs productividad
+## Tipo de trabajo vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -334,7 +337,7 @@ ggplot(data=DB,aes(x=job,y=self_productivity,fill=job))+
 
 **Interpretación:** La productividad media es diferente según el tipo de trabajo, siendo los administrativos los más productivos. Resultados del ANOVA de Welch: F = 5.531; p-value = 0.002311.
 
-### Tipo de turno vs productividad
+## Tipo de turno vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 # shift vs productividad 
@@ -352,7 +355,7 @@ ggplot(data=DB,aes(x=shift,y=self_productivity,fill=shift))+
 
 **Interpretación:** La productividad media no es diferente según el turno de trabajo. Resultados del ANOVA de Welch: F = 0.12829; p-value = 0.941.
 
-### Tipo de turno vs satisfacción en el trabajo
+## Tipo de turno vs satisfacción en el trabajo
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -372,7 +375,7 @@ ggplot(data=DB,aes(x=shift,y=job_satisfaction,fill=shift))+
 
 **Interpretación:** La satisfacción media es diferente según el turno de trabajo, sintiendo más satisfacción aquellos con turnos flexibles. Resultados del ANOVA de Welch: F = 4.1452; p-value = 0.04804.
 
-### Tipo de turno vs insomnio 
+## Tipo de turno vs insomnio 
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -391,7 +394,7 @@ ggplot(data=DB,aes(x=shift,y=insomnio,fill=shift))+
 
 **Interpretación:** El índice de insomnio medio es diferente según el turno de trabajo, siendo menor para los trabajadores con turno en la tarde. Resultados del ANOVA de Welch: F = 23.323; p-value = 9.342e-05.
 
-### Calidad del sueño vs productividad
+## Calidad del sueño vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -410,7 +413,7 @@ ggplot(data=DB,aes(x=sleeping_quality,y=self_productivity,fill=sleeping_quality)
 
 **Interpretación:** La productividad media no es diferente según la calidad del sueño. Resultados del ANOVA de Welch: F = 3.0808; p-value = 0.06904.
 
-### Calidad del sueño vs satisfacción
+## Calidad del sueño vs satisfacción
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 # Calidad de sueño vs satisfaccion
@@ -428,7 +431,7 @@ ggplot(data=DB,aes(x=sleeping_quality,y=job_satisfaction,fill=sleeping_quality))
 
 **Interpretación:** La satisfacción media es diferente según la calidad del sueño. Resultados del ANOVA de Welch: F = 3.4568; p-value = 0.0533.
 
-### Insomnio vs satisfacción
+## Insomnio vs satisfacción
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -451,7 +454,7 @@ ggplot(data=DB,aes(x=insomnio,y=job_satisfaction))+
 
 **Interpretación:** No hay una correlación significativa entre la satisfacción en el trabajo y el insomnio. (S = 185967, p-value = 0.7151, rho = 0.03604247)
 
-### Insomnio vs productividad
+## Insomnio vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -474,7 +477,7 @@ ggplot(data=DB,aes(x=insomnio,y=self_productivity))+
 
 **Interpretación:** No hay una correlación significativa entre la satisfacción en el trabajo y el insomnio. (S = 214376, p-value = 0.2587, rho = -0.1112151)
 
-### Edad vs productividad
+## Edad vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -496,7 +499,7 @@ ggplot(data = DB,aes(x=age,y=self_productivity))+
 
 **Interpretación:** Hay una correlación positiva significativa entre la edad y la productividad. (S = 151354, p-value = 0.02729, rho = 0.2154549)
 
-### Tiempo de trabajo vs satisfacción
+## Tiempo de trabajo vs satisfacción
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -519,7 +522,7 @@ ggplot(data = DB,aes(time_job,y=job_satisfaction))+
 
 **Interpretación:** Hay correlación positiva significativa entre el tiempo en el trabajo y satisfacción en el trabajo . (S = 151300, p-value = 0.02708, rho = 0.2157394)
 
-### Días de trabajo por semana vs productividad
+## Días de trabajo por semana vs productividad
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
@@ -542,195 +545,160 @@ ggplot(data = DB,aes(x=jobdays_perweek,y=self_productivity))+
 
 **Interpretación:** No hay una correlación significativa entre el número de días laborales por semana y la productividad. (S = 170893, p-value = 0.2461, rho = 0.1141764)
 
+## Número de días laborales vs satisfacción
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
 
 # Job days vs satisfaction
-
 ggplot(data = DB,aes(x=jobdays_perweek,y=job_satisfaction))+
   geom_point()+
   xlab("Job days per week")+ylab("Job satisfaction")+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
+  theme(axis.text = element_text(family = "Open Sans"))+
+  geom_smooth(method = "lm",fill=NA,aes(colour="A"))+
+  scale_colour_manual(values=met.brewer("Pissaro",4)[4],label="rho = 0.23 **")+
+  theme(legend.position = c(0.67,0.55))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans",size=10))
 ```
 
+**Interpretación:** Hay correlación positiva significativa entre el número de días laborales por semana y satisfacción en el trabajo . (S = 149144, p-value = 0.01992, rho = 0.2269141)
+
+## Correlaciones entre índices de sueño y variables sociodemográficas
+
+Todas las variables se probaron para ver si son normales y como ninguna es normal se hicieron correlaciones de spearman. 
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
+edad<-cor(age,DB[,c(19,20,25,26)],method = "spearman")
+tiempotrab<-cor(time_job,DB[,c(19,20,25,26)],method = "spearman")
+satisfaccion<-cor(job_satisfaction,DB[,c(19,20,25,26)],method = "spearman")
+productividad<-cor(self_productivity,DB[,c(19,20,25,26)],method = "spearman")
 
-# tipo de trabajo vs satisfaccion
+cormat<-matrix(data = c(edad,tiempotrab,satisfaccion,productividad),ncol = 4,byrow = TRUE,dimnames =list(persona=c("Edad","Tiempo de trabajo","Satisfaccion","Productividad"),sueno=c("pittsburg","hygene","insomnio","sub_insomnio")))
 
-ggplot(data=DB,aes(x=job,y=job_satisfaction,fill=job))+
-  geom_boxplot(color="black")+
-  ylab("Job satisfaction")+xlab("Job")+
+matbuena<-melt(cormat)
+
+colnames(matbuena)[3]<-"valor"
+
+ggplot(data=matbuena,aes(x=persona,y=sueno,fill=valor))+
+  geom_tile(color = "white",
+            lwd = 1.5,
+            linetype = 1)+
+  coord_fixed()+
   theme_pubclean()+
-  theme(legend.position = "none")+
-  scale_fill_met_d("Pissaro")+
+  theme(legend.position = "right")+
+  xlab("Personal variables")+
+  ylab("Sleeping quality variables")+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
+  theme(axis.text = element_text(family = "Open Sans"))+
+  scale_x_discrete(labels=c("Age","Job time","Job satisfaction","Self productivity"))+
+  scale_y_discrete(labels=c("Pittsburg index","Sleep hygiene","Insomnia index","Subth insomnia index"))+
+  theme(legend.title = element_text(family = "Open Sans",face="bold"))+
+  theme(legend.text = element_text(family = "Open Sans"))+
+  scale_fill_gradientn(name="Correlation",colors = met.brewer("Pissaro",6))
+
+matbuena1<-matbuena
+colnames(matbuena1)<-c("Variable sociodemográfica","Índice","Correlación (rho)")
+knitr::kable(matbuena1)
+  
 ```
 
+**Interpretación:** Azul más oscuro = mayor correlación positiva; verde más oscuro = mayor correlación negativa. Casi todas las correlaciones son muy bajas y ninguna es estadísticamente significativa. 
+
+# Regresiones
+
+Se hicieron 4 regresiones de Poisson (no logísticas, porque las variables de respuesta no son dicotómicas, sino que son númericas discretas):
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+modelos<-c("1","2","3","4")
+variable_rep<-c(rep(c("Satisfacción","Productividad"),2))
+variables_entrada<-c(rep("Índices de sueño",2),rep("Variables sociodemográficas",2))
+tabla<-data.frame(modelos,variable_rep,variables_entrada)
+colnames(tabla)<-c("Modelo","Variable de respuesta","Variables independientes")
+knitr::kable(tabla)
+```
+
+- **Variables sociodemográficas:** Edad, sexo, si vive o no con gente, número de hijos, horas semanales de ejercicio
+
+- **Variables del sueño:** Calidad del sueño, Índice de Pittsburg, Higiene del sueño, Insomio, Subth_insomnia.
+
+## Resultados de las regresiones
+
+### Modelo 1
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+m1<-glm(job_satisfaction~sleeping_quality+pittsburg+hygine+insomnio+subth_insomnia,family = "poisson")
+summary(m1)
+```
+
+### Modelo 2
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+m2<-glm(self_productivity~sleeping_quality+pittsburg+hygine+insomnio+subth_insomnia,family = "poisson")
+summary(m2)
+```
+
+## Modelo 3
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+m3<-glm(job_satisfaction~age+sex+liveswithpeople+kids_number+exercise_hours_week,family = "poisson")
+summary(m3)
+```
+
+## Modelo 4
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+m4<-glm(self_productivity~age+sex+liveswithpeople+kids_number+exercise_hours_week,family = "poisson")
+summary(m4)
+```
+
+**Interpretación:** Solo las variables con asteriscos son relevantes para explicar la variable de respuesta. La satisfacción en el trabajo se ve más explicada por factores sociodemográficos que por factores del sueño. La productividad no se ve bien explicada por ninguno de los dos tipos de variables. 
+
+# MCTQ
+
+## MSFsc vs MSF
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
+MCTQ1<-cbind(MCTQ,DB[,c(12,14,15,18)])
 
-# tipo de trabajo vs productividad
-
-ggplot(data=DB,aes(x=job,y=self_productivity,fill=job))+
-  geom_boxplot(color="black")+
-  ylab("Self productivity")+xlab("Job")+
+ggplot(data=MCTQ1,aes(x=MSFsc,y=MSF))+
+  geom_point(size=2,shape=1)+
+  geom_abline(aes(intercept = 1, slope=1,colour="1:1 ratio"),size=0.5)+
+  geom_smooth(method = "lm",fill=NA,linetype="dashed",aes(colour="A"))+
   theme_pubclean()+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
   theme(axis.text = element_text(family = "Open Sans"))+
-  theme(legend.position = "none")+
-  scale_fill_met_d("Pissaro")
+  theme(legend.position = c(0.8,0.2))+
+  theme(legend.title = element_blank())+
+  theme(legend.background = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.text = element_text(family = "Open Sans"))+
+  scale_colour_manual(values=c(met.brewer("Pissaro",4)[3],"black"),labels=c("1:1 ratio",bquote( r^2==0.91)))+
+  annotate(geom="text",x=12,y=8,label="y =1.01947x - 0.72550",size=4,family="Open Sans",fontface=1)
 ```
 
+**Interpretación:** Línea negra: el resultado de la regresión lineal simple. Línea azul: Cómo sería la relación 1:1
+
+## MSF vs MSW
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# shift vs productividad 
-
-ggplot(data=DB,aes(x=shift,y=self_productivity,fill=shift))+
-  geom_boxplot(color="black")+
-  ylab("Self productivity")+xlab("Shift type")+
-  theme_pubclean()+
+ggplot(data=MCTQ,aes(x=MSF,y=MSW,color=shift))+
+  geom_point(size=1)+
+  geom_smooth(method = "lm", fill = NA, size=0.65)+
+  theme_pubclean()+ 
+  theme(legend.position = c(0.8,0.4))+
   theme(axis.title = element_text(face="bold",family = "Open Sans"))+
   theme(axis.text = element_text(family = "Open Sans"))+
-  theme(legend.position = "none")+
-  scale_fill_met_d("Pissaro")+
-  scale_x_discrete(labels=c("Night","Afternoon","Morning","Flexible"))
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# shift vs satisfaction
-
-ggplot(data=DB,aes(x=shift,y=job_satisfaction,fill=shift))+
-  geom_boxplot(color="black")+
-  ylab("Job satisfaction")+xlab("Shift type")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
-  theme(legend.position = "none")+
-  scale_fill_met_d("Pissaro")+
-  scale_x_discrete(labels=c("Night","Afternoon","Morning","Flexible"))
+  scale_color_discrete(name="Shift",type = met.brewer("Pissaro",4),labels=c("Night shift: rho = 1 ","Afternoon shift: rho = 0.72","Morning shift: rho = 0.68 ***","Flexible shift: rho = 0.75 ***"))+
+  theme(legend.text = element_text(family = "Open Sans"))+
+  theme(legend.title = element_blank())+
+  theme(legend.key = element_rect(fill = "transparent"))+
+  theme(legend.background = element_rect(fill = "transparent"))
 
 ```
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# shift insomnio 
-
-ggplot(data=DB,aes(x=shift,y=insomnio,fill=shift))+
-  geom_boxplot(color="black")+
-  ylab("Insomnio index")+xlab("Shift type")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
-  theme(legend.position = "none")+
-  scale_fill_met_d("Pissaro")+
-  scale_x_discrete(labels=c("Night","Afternoon","Morning","Flexible"))
-
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# Calidad del sueño vs productividad
-
-ggplot(data=DB,aes(x=sleeping_quality,y=self_productivity,fill=sleeping_quality))+
-  geom_boxplot(color="black")+
-  ylab("Self productivity")+xlab("Sleeping quality")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
-  theme(legend.position = "none")+
-  scale_fill_met_d("Pissaro")+
-  scale_x_discrete(labels=c("Very bad","Bad","Good","Very good"))
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# Calidad de sueño vs satisfaccion
-
-ggplot(data=DB,aes(x=sleeping_quality,y=job_satisfaction,fill=sleeping_quality))+
-  geom_boxplot(color="black")+
-  ylab("Job satisfaction")+xlab("Sleeping quality")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))+
-  theme(legend.position = "none")+
-  scale_fill_met_d("Pissaro")+
-  scale_x_discrete(labels=c("Very bad","Bad","Good","Very good"))
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# Insomnio vs satisfaccion
-
-ggplot(data=DB,aes(x=insomnio,y=job_satisfaction))+
-  geom_point()+
-  ylab("Insomnio index")+xlab("Job satisfaction")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# Insomnio vs productividad
-
-ggplot(data=DB,aes(x=insomnio,y=self_productivity))+
-  geom_point()+
-  ylab("Insomnio index")+xlab("Self productivity")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# Edad vs productividad
-
-ggplot(data = DB,aes(x=age,y=self_productivity))+
-  geom_point()+
-  ylab("Self productivity")+xlab("Age (years)")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# time job vs satisfaction
-
-ggplot(data = DB,aes(time_job,y=self_productivity))+
-  geom_point()+
-  xlab("Time job (years)")+ylab("Self productivity")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# job days vs productividad
-
-ggplot(data = DB,aes(x=jobdays_perweek,y=self_productivity))+
-  geom_point()+
-  xlab("Job days per week")+ylab("Self productivity")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
-
-```
-
-```{r,echo=FALSE,warning=FALSE,message=FALSE,out.width="75%"}
-
-# Job days vs satisfaction
-
-ggplot(data = DB,aes(x=jobdays_perweek,y=job_satisfaction))+
-  geom_point()+
-  xlab("Job days per week")+ylab("Job satisfaction")+
-  theme_pubclean()+
-  theme(axis.title = element_text(face="bold",family = "Open Sans"))+
-  theme(axis.text = element_text(family = "Open Sans"))
-
-```
-
-
+**Interpretación:** Se hicieron las líneas de tendencia para cada tipo de turno, el rho es el coeficiente de correlación de spearman. Los asteriscos indican que la correlación es estadísticamente significativa.
